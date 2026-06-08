@@ -132,21 +132,23 @@
             letter-spacing: 0.5px;
         }
 
-        /* 條列式極簡注意事項 */
+        /* 還原原本的色塊注意事項設計，僅微調大小以適應單屏 */
         .notices {
             padding: 0 15px 15px 15px;
-            font-size: 11px;
-            color: #64748b;
-            line-height: 1.5;
             background: #fff;
         }
 
-        .notice-item {
-            margin-bottom: 2px;
+        .notice-box {
+            padding: 8px 10px;
+            margin-bottom: 6px;
+            border-radius: 6px;
+            font-size: 11px;
+            line-height: 1.4;
         }
-
-        .notice-item strong {
-            color: #e11d48;
+        
+        /* 移除最後一個 box 的 margin，節省空間 */
+        .notice-box:last-child {
+            margin-bottom: 0;
         }
     </style>
 </head>
@@ -167,7 +169,7 @@
             <div class="res-title">起始劑量 (Loading Dose)</div>
             <div class="vial-num" id="l-vial">0 vial</div>
             <div class="vial-detail" id="l-detail">(0 KU / 0 mg)</div>
-            <div class="time-hint">建議輸注 > 2 小時</div>
+            <div class="time-hint">建議輸注時間 > 2 小時</div>
         </div>
 
         <div class="arrow-divider">↓ 給予起始劑量 12 小時後 ↓</div>
@@ -176,14 +178,20 @@
             <div class="res-title">維持劑量 (Maintenance Dose)</div>
             <div class="vial-num"><span id="m-vial">0</span> vial <span class="q12h">Q12H</span></div>
             <div class="vial-detail" id="m-detail">(0 KU / 0 mg)</div>
-            <div class="time-hint">建議輸注 > 1 小時</div>
+            <div class="time-hint">建議輸注時間 > 1 小時</div>
         </div>
     </div>
 
     <div class="notices">
-        <div class="notice-item"><strong>【免責】</strong>非官方建立，僅供臨床劑量參考。</div>
-        <div class="notice-item"><strong>【液量】</strong>每vial > 100ml，限水病患至少 > 50ml。</div>
-        <div class="notice-item"><strong>【族群】</strong>肝腎不全、HD/CRRT/ECMO患者不需調劑量。</div>
+        <div class="notice-box" style="background:#f8d7da; color:#721c24; font-weight:bold;">
+            【免責聲明】非官方建立，僅供劑量參考，請務必依照醫師及藥師建議使用。
+        </div>
+        <div class="notice-box" style="background:#fff3cd; color:#856404;">
+            【輸注液量建議】每 vial > 100ml，限水病患至少每 vial > 50ml。
+        </div>
+        <div class="notice-box" style="background:#fff3cd; color:#856404;">
+            【特殊族群】肝腎功能不全、使用 ECMO、HD、CRRT、CAPD 患者，不需調整劑量。
+        </div>
     </div>
 </div>
 
