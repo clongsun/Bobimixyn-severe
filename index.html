@@ -118,4 +118,125 @@
         }
 
         .time-hint {
-            font-size: 12
+            font-size: 12px;
+            color: var(--primary);
+            font-weight: 600;
+        }
+
+        .arrow-divider {
+            text-align: center;
+            color: #94a3b8;
+            font-size: 11px;
+            margin: 6px 0;
+            font-weight: bold;
+            letter-spacing: 0.5px;
+        }
+
+        /* 條列式極簡注意事項 */
+        .notices {
+            padding: 0 15px 15px 15px;
+            font-size: 11px;
+            color: #64748b;
+            line-height: 1.5;
+            background: #fff;
+        }
+
+        .notice-item {
+            margin-bottom: 2px;
+        }
+
+        .notice-item strong {
+            color: #e11d48;
+        }
+    </style>
+</head>
+<body>
+
+<div class="app-container">
+    <div class="header">
+        Bobimixyn 劑量計算工具
+    </div>
+
+    <div class="input-section">
+        <label for="weight">請輸入病患實際體重 (kg)</label>
+        <input type="number" id="weight" class="weight-input" placeholder="0" oninput="calculate()">
+    </div>
+
+    <div id="results" class="result-section">
+        <div class="res-row">
+            <div class="res-title">起始劑量 (Loading Dose)</div>
+            <div class="vial-num" id="l-vial">0 vial</div>
+            <div class="vial-detail" id="l-detail">(0 KU / 0 mg)</div>
+            <div class="time-hint">建議輸注 > 2 小時</div>
+        </div>
+
+        <div class="arrow-divider">↓ 給予起始劑量 12 小時後 ↓</div>
+
+        <div class="res-row">
+            <div class="res-title">維持劑量 (Maintenance Dose)</div>
+            <div class="vial-num"><span id="m-vial">0</span> vial <span class="q12h">Q12H</span></div>
+            <div class="vial-detail" id="m-detail">(0 KU / 0 mg)</div>
+            <div class="time-hint">建議輸注 > 1 小時</div>
+        </div>
+    </div>
+
+    <div class="notices">
+        <div class="notice-item"><strong>【免責】</strong>非官方建立，僅供臨床劑量參考。</div>
+        <div class="notice-item"><strong>【液量】</strong>每vial > 100ml，限水病患至少 > 50ml。</div>
+        <div class="notice-item"><strong>【族群】</strong>肝腎不全、HD/CRRT/ECMO患者不需調劑量。</div>
+    </div>
+</div>
+
+<script>
+    function calculate() {
+        const w = parseFloat(document.getElementById('weight').value);
+        const results = document.getElementById('results');
+        
+        if (!w || w < 40) {
+            results.style.display = 'none';
+            return;
+        }
+
+        results.style.display = 'block';
+
+        let l_v, l_ku, l_mg, m_v, m_ku, m_mg;
+
+        if (w < 45) {
+            l_v = 2; l_ku = 1000; l_mg = 100;
+            m_v = 1.2; m_ku = 600; m_mg = 60;
+        } else if (w < 50) {
+            l_v = 2.25; l_ku = 1125; l_mg = 112.5;
+            m_v = 1.35; m_ku = 675; m_mg = 67.5;
+        } else if (w < 55) {
+            l_v = 2.5; l_ku = 1250; l_mg = 125;
+            m_v = 1.5; m_ku = 750; m_mg = 75;
+        } else if (w < 60) {
+            l_v = 2.75; l_ku = 1375; l_mg = 137.5;
+            m_v = 1.65; m_ku = 825; m_mg = 82.5;
+        } else if (w < 65) {
+            l_v = 3; l_ku = 1500; l_mg = 150;
+            m_v = 1.8; m_ku = 900; m_mg = 90;
+        } else if (w < 70) {
+            l_v = 3.25; l_ku = 1625; l_mg = 162.5;
+            m_v = 1.95; m_ku = 975; m_mg = 97.5;
+        } else if (w < 75) {
+            l_v = 3.5; l_ku = 1750; l_mg = 175;
+            m_v = 2.1; m_ku = 1050; m_mg = 105;
+        } else if (w < 80) {
+            l_v = 3.75; l_ku = 1875; l_mg = 187.5;
+            m_v = 2.25; m_ku = 1125; m_mg = 112.5;
+        } else {
+            l_v = 4; l_ku = 2000; l_mg = 200;
+            m_v = 2.4; m_ku = 1200; m_mg = 120;
+        }
+
+        document.getElementById('l-vial').innerText = l_v + " vial";
+        document.getElementById('l-detail').innerText = `(${l_ku.toLocaleString()} KU / ${l_mg} mg)`;
+        
+        document.getElementById('m-vial').innerText = m_v;
+        document.getElementById('m-detail').innerText = `(${m_ku.toLocaleString()} KU / ${m_mg} mg)`;
+    }
+</script>
+
+</body>
+</html>
